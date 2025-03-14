@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS products (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    product_name VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
+    id varchar PRIMARY KEY,
+    product_name varchar(255) NOT NULL,
+    description varchar NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE,

@@ -1,16 +1,28 @@
+version: '3.8'
+
 services:
-  postgres:
-    image: 'postgres:latest'
+  postgres_catalog:
+    image: postgres:15
+    container_name: postgres_catalog
+    restart: always
     environment:
-      - 'POSTGRES_DB=mydatabase'
-      - 'POSTGRES_PASSWORD=secret'
-      - 'POSTGRES_USER=myuser'
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: catalog
     ports:
-      - '5432'
+      - "5433:5432"
+    volumes:
+      - pg_catalog_data:/var/lib/postgresql/data
+
   rabbitmq:
-    image: 'rabbitmq:latest'
-    environment:
-      - 'RABBITMQ_DEFAULT_PASS=secret'
-      - 'RABBITMQ_DEFAULT_USER=myuser'
+    image: "rabbitmq:3-management"
+    container_name: rabbitmq
     ports:
-      - '5672'
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
+volumes:
+  pg_catalog_data:
