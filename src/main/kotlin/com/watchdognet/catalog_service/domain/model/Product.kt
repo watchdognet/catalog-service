@@ -2,6 +2,9 @@ package com.watchdognet.catalog_service.domain.model
 
 import com.watchdognet.catalog_service.domain.model.events.DomainEvent
 import com.watchdognet.catalog_service.domain.model.events.ProductCreatedEvent
+import com.watchdognet.catalog_service.domain.model.events.ProductStatusChangedEvent
+import com.watchdognet.catalog_service.domain.model.events.ProductStockUpdatedEvent
+import com.watchdognet.catalog_service.domain.model.events.ProductUpdatedEvent
 import java.time.OffsetDateTime
 
 class Product private constructor(
@@ -26,6 +29,80 @@ class Product private constructor(
 
   private fun registerEvent(event: DomainEvent) {
     events.add(event)
+  }
+
+  fun getEvents(): List<DomainEvent> {
+    val eventsCopy = events.toList()
+    events.clear()
+    return eventsCopy
+  }
+
+  fun updateDetails(
+    name: String,
+    description: String,
+    price: Double,
+    stock: Int
+  ) {
+    this.name = Name.of(name)
+    this.description = Description.of(description)
+    this.price = Price.of(price)
+    this.stock = Stock.of(stock)
+    this.modifiedAt = ProductTimestamp.now()
+
+    registerEvent(
+      ProductUpdatedEvent(
+        productId = getId(),
+        name = getName(),
+        description = getDescription(),
+        price = getPrice(),
+        stock = getStock(),
+        active = isActive(),
+        modifiedAt = getModifiedAt()!!
+      )
+    )
+  }
+
+  fun updateStock(quantity: Int) {
+    this.stock = Stock.of(quantity)
+    this.modifiedAt = ProductTimestamp.now()
+
+    registerEvent(
+      ProductStockUpdatedEvent(
+        productId = getId(),
+        stock = getStock(),
+        modifiedAt = getModifiedAt()!!
+      )
+    )
+  }
+
+  fun activate() {
+    if (!active) {
+      this.active = true
+      this.modifiedAt = ProductTimestamp.now()
+
+      registerEvent(
+        ProductStatusChangedEvent(
+          productId = getId(),
+          active = true,
+          modifiedAt = getModifiedAt()!!
+        )
+      )
+    }
+  }
+
+  fun deactivate() {
+    if (active) {
+      this.active = false
+      this.modifiedAt = ProductTimestamp.now()
+
+      registerEvent(
+        ProductStatusChangedEvent(
+          productId = getId(),
+          active = false,
+          modifiedAt = getModifiedAt()!!
+        )
+      )
+    }
   }
 
   companion object {
