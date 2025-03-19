@@ -8,6 +8,5 @@ interface ProductRepository {
   fun findById(id: String): Optional<Product>
   fun findAll(): List<Product>
   fun findByNameContaining(name: String): List<Product>
-  fun update(product: Product): Product
   fun delete(id: String)
 }
