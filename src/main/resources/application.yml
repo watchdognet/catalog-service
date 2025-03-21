@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres_catalog:5432/catalog_db
-    username: catalog_user
-    password: catalog_pass
+    url: jdbc:postgresql://localhost:5436/productsservice
+    username: dbuser
+    password: dbpass
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -13,8 +13,9 @@ spring:
     show-sql: true
   flyway:
     enabled: true
+    baseline-on-migrate: true
   rabbitmq:
-    host: rabbitmq
+    host: localhost
     port: 5672
     username: admin
     password: admin

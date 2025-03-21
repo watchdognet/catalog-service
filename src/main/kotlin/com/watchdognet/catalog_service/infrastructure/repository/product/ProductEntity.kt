@@ -4,6 +4,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.math.BigDecimal
 import java.time.OffsetDateTime
 
 @Entity
@@ -19,7 +20,7 @@ data class ProductEntity(
   val description: String,
 
   @Column(nullable = false)
-  val price: Double,
+  val price: BigDecimal,
 
   @Column(nullable = false)
   val stock: Int,

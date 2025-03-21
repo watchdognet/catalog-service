@@ -2,10 +2,11 @@ package com.watchdognet.catalog_service.domain.model
 
 import com.watchdognet.catalog_service.domain.model.events.DomainEvent
 import com.watchdognet.catalog_service.domain.model.events.ProductCreatedEvent
+import com.watchdognet.catalog_service.domain.model.events.ProductStateChangedEvent
 import com.watchdognet.catalog_service.domain.model.events.ProductStatusChangedEvent
 import com.watchdognet.catalog_service.domain.model.events.ProductStockUpdatedEvent
 import com.watchdognet.catalog_service.domain.model.events.ProductUpdatedEvent
-import java.time.OffsetDateTime
+import java.math.BigDecimal
 
 class Product private constructor(
   val id: ProductId,
@@ -18,14 +19,29 @@ class Product private constructor(
   var modifiedAt: ProductTimestamp? = null,
   private val events: MutableList<DomainEvent> = mutableListOf()
 ) {
-  fun getId(): String = id.value
-  fun getName(): String = name.value
-  fun getDescription(): String = description.value
-  fun getPrice(): Double = price.value
-  fun getStock(): Int = stock.value
-  fun isActive(): Boolean = active
-  fun getCreatedAt(): OffsetDateTime = createdAt.value
-  fun getModifiedAt(): OffsetDateTime? = modifiedAt?.value
+  fun getId() = id.value
+  fun getName() = name.value
+  fun getDescription() = description.value
+  fun getPrice() = price.value
+  fun getStock() = stock.value
+  fun isActive() = active
+  fun getCreatedAt() = createdAt.value
+  fun getModifiedAt() = modifiedAt?.value
+
+  private fun registerStateChangeEvent() {
+    val stateEvent = ProductStateChangedEvent(
+      productId = this.getId(),
+      name = this.getName(),
+      description = this.getDescription(),
+      price = this.getPrice(),
+      stock = this.getStock(),
+      active = this.isActive(),
+      createdAt = this.getCreatedAt(),
+      modifiedAt = this.getModifiedAt()
+    )
+
+    registerEvent(stateEvent)
+  }
 
   private fun registerEvent(event: DomainEvent) {
     events.add(event)
@@ -40,7 +56,7 @@ class Product private constructor(
   fun updateDetails(
     name: String,
     description: String,
-    price: Double,
+    price: BigDecimal,
     stock: Int
   ) {
     this.name = Name.of(name)
@@ -60,6 +76,7 @@ class Product private constructor(
         modifiedAt = getModifiedAt()!!
       )
     )
+    registerStateChangeEvent()
   }
 
   fun updateStock(quantity: Int) {
@@ -73,6 +90,7 @@ class Product private constructor(
         modifiedAt = getModifiedAt()!!
       )
     )
+    registerStateChangeEvent()
   }
 
   fun activate() {
@@ -87,6 +105,7 @@ class Product private constructor(
           modifiedAt = getModifiedAt()!!
         )
       )
+      registerStateChangeEvent()
     }
   }
 
@@ -102,11 +121,12 @@ class Product private constructor(
           modifiedAt = getModifiedAt()!!
         )
       )
+      registerStateChangeEvent()
     }
   }
 
   companion object {
-    fun create(name: String, description: String, price: Double, stock: Int): Product {
+    fun create(name: String, description: String, price: BigDecimal, stock: Int): Product {
       val product = Product(
         id = ProductId.new(),
         name = Name.of(name),
@@ -127,6 +147,8 @@ class Product private constructor(
         )
       )
 
+      product.registerStateChangeEvent()
+
       return product
     }
 
@@ -134,7 +156,7 @@ class Product private constructor(
       id: String,
       name: String,
       description: String,
-      price: Double,
+      price: BigDecimal,
       stock: Int,
       active: Boolean,
       createdAt: ProductTimestamp,
