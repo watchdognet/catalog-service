@@ -1,6 +1,7 @@
 package com.watchdognet.catalog_service.infrastructure.configuration
 
 import com.watchdognet.catalog_service.application.product.create.CreateProductUseCase
+import com.watchdognet.catalog_service.application.product.update.UpdateProductStockUseCase
 import com.watchdognet.catalog_service.domain.model.events.DomainEventPublisher
 import com.watchdognet.catalog_service.domain.model.repository.ProductRepository
 import com.watchdognet.catalog_service.infrastructure.repository.product.ProductJpaRepository
@@ -25,4 +26,13 @@ class ProductConfiguration {
   ): ProductRepository {
     return ProductRepositoryImpl(jpaProductRepository)
   }
+
+  @Bean
+  fun updateProductStock(
+    productRepository: ProductRepository,
+    eventPublisher: DomainEventPublisher
+  ) = UpdateProductStockUseCase(
+    productRepository = productRepository,
+    eventPublisher = eventPublisher
+  )
 }
