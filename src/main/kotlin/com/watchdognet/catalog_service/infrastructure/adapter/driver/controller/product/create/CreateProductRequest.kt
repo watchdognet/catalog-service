@@ -1,4 +1,4 @@
-package com.watchdognet.catalog_service.infrastructure.controller.product.create
+package com.watchdognet.catalog_service.infrastructure.adapter.driver.controller.product.create
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.math.BigDecimal

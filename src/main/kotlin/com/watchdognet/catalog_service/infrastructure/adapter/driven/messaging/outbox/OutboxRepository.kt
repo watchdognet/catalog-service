@@ -1,4 +1,4 @@
-package com.watchdognet.catalog_service.infrastructure.messaging.outbox
+package com.watchdognet.catalog_service.infrastructure.adapter.driven.messaging.outbox
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query

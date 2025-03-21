@@ -1,4 +1,4 @@
-package com.watchdognet.catalog_service.infrastructure.controller.product
+package com.watchdognet.catalog_service.infrastructure.adapter.driver.controller.product
 
 import java.math.BigDecimal
 import java.time.OffsetDateTime

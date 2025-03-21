@@ -5,8 +5,8 @@ import com.watchdognet.catalog_service.application.product.update.UpdateProductS
 import com.watchdognet.catalog_service.application.product.update.UpdateProductUseCase
 import com.watchdognet.catalog_service.domain.model.events.DomainEventPublisher
 import com.watchdognet.catalog_service.domain.model.repository.ProductRepository
-import com.watchdognet.catalog_service.infrastructure.repository.product.ProductJpaRepository
-import com.watchdognet.catalog_service.infrastructure.repository.product.ProductRepositoryImpl
+import com.watchdognet.catalog_service.infrastructure.adapter.driven.repository.product.ProductJpaRepository
+import com.watchdognet.catalog_service.infrastructure.adapter.driven.repository.product.ProductRepositoryImpl
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 

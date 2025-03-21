@@ -1,9 +1,9 @@
-package com.watchdognet.catalog_service.infrastructure.controller.product.update
+package com.watchdognet.catalog_service.infrastructure.adapter.driver.controller.product.update
 
 import com.watchdognet.catalog_service.application.product.update.UpdateProductStockCommand
 import com.watchdognet.catalog_service.application.product.update.UpdateProductStockUseCase
-import com.watchdognet.catalog_service.infrastructure.controller.product.ProductMapper
-import com.watchdognet.catalog_service.infrastructure.controller.product.ProductResponse
+import com.watchdognet.catalog_service.infrastructure.adapter.driver.controller.product.ProductMapper
+import com.watchdognet.catalog_service.infrastructure.adapter.driver.controller.product.ProductResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional

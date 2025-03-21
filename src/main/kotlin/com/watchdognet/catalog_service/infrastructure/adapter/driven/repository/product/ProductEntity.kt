@@ -1,4 +1,4 @@
-package com.watchdognet.catalog_service.infrastructure.repository.product
+package com.watchdognet.catalog_service.infrastructure.adapter.driven.repository.product
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

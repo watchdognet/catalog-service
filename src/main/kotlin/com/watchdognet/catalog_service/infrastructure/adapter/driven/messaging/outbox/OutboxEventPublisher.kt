@@ -1,4 +1,4 @@
-package com.watchdognet.catalog_service.infrastructure.messaging.outbox
+package com.watchdognet.catalog_service.infrastructure.adapter.driven.messaging.outbox
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.watchdognet.catalog_service.domain.model.events.DomainEvent

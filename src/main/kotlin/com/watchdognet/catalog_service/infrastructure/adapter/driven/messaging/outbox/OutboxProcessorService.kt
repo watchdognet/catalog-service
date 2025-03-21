@@ -1,4 +1,4 @@
-package com.watchdognet.catalog_service.infrastructure.messaging.outbox
+package com.watchdognet.catalog_service.infrastructure.adapter.driven.messaging.outbox
 
 import org.slf4j.LoggerFactory
 import org.springframework.amqp.rabbit.core.RabbitTemplate

@@ -1,4 +1,4 @@
-package com.watchdognet.catalog_service.infrastructure.repository.product
+package com.watchdognet.catalog_service.infrastructure.adapter.driven.repository.product
 
 import com.watchdognet.catalog_service.domain.model.Product
 import com.watchdognet.catalog_service.domain.model.ProductTimestamp
